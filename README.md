@@ -171,7 +171,7 @@ This script will:
 - `/health` - System health status
 - `/monitoring/metrics` - Prometheus metrics
 - Built-in request/response monitoring
-- Optional Redis caching support (uses in-memory fallback if not available)
+- In-memory caching for performance optimization
 
 ### Performance Evaluation
 
@@ -267,13 +267,6 @@ export RATE_LIMIT_REQUESTS=1000
 
 This project is licensed under the MIT License.
 
-## 🎯 Performance Benchmarks
-
-- **Latency**: < 10ms for recommendations (with ANN indexing)
-- **Throughput**: 1000+ requests/second
-- **Scalability**: Tested with 100k+ track catalogs
-- **Memory**: ~500MB for 50k tracks with 128-dim embeddings
-
 ## 🔍 Troubleshooting
 
 ### Common Issues
@@ -288,14 +281,6 @@ pip install torch transformers  # Install optional dependencies
 
 ```bash
 pip install faiss-cpu  # Or faiss-gpu for GPU support
-```
-
-**Q: Redis connection error**
-
-```bash
-# Start Redis locally (if needed for enhanced caching)
-redis-server
-# Note: Redis is optional - the system uses in-memory fallback if unavailable
 ```
 
 **Q: Model initialization fails**

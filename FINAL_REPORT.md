@@ -255,14 +255,14 @@ Comprehensive monitoring includes:
 
 **Parallel Processing**: Recommendation generation leverages NumPy's vectorized operations and optional multiprocessing for batch recommendations.
 
-**Caching Strategy**: Redis-based caching for frequently requested recommendations with configurable TTL policies.
+**Caching Strategy**: In-memory caching for frequently requested recommendations with configurable TTL policies.
 
 #### 3.5.2 Horizontal Scaling Design
 
 The stateless API design enables horizontal scaling through:
 
 - Load balancer distribution
-- Shared model storage (Redis/database)
+- Shared model storage (file system/database)
 - Independent scaling of recommendation engines
 - Containerized deployment with Docker
 

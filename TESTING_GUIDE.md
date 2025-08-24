@@ -251,13 +251,6 @@ python manual_test_script.py
 pip install lightfm
 ```
 
-**Issue**: `Redis connection error`
-
-```bash
-# Solution: This is normal if Redis is not installed
-# The system works without Redis (caching disabled)
-```
-
 **Issue**: `FAISS import error`
 
 ```bash
