@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  # Main API service
+  nexttrack-api:
+    build:
+      context: .
+      target: ${DOCKER_TARGET:-development}
+    ports:
+      - "${PORT:-8000}:8000"
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - HOST=0.0.0.0
+      - PORT=8000
+      - CF_WEIGHT=${CF_WEIGHT:-0.7}
+      - CB_WEIGHT=${CB_WEIGHT:-0.3}
+      - USE_CONTENT_BASED=${USE_CONTENT_BASED:-true}
+      - USE_ANN_INDEX=${USE_ANN_INDEX:-true}
+      - ANN_INDEX_TYPE=${ANN_INDEX_TYPE:-faiss}
+      - ENABLE_AUTH=${ENABLE_AUTH:-false}
+      - API_KEY=${API_KEY:-}
+      - RATE_LIMIT_REQUESTS=${RATE_LIMIT_REQUESTS:-100}
+      - RATE_LIMIT_WINDOW=${RATE_LIMIT_WINDOW:-3600}
+    volumes:
+      - ./data:/app/data:ro
+      - ./logs:/app/logs
+      # Development only - mount source code
+      - ${PWD}:/app:delegated
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - nexttrack
+
+  # Nginx reverse proxy for production
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - nexttrack-api
+    restart: unless-stopped
+    networks:
+      - nexttrack
+    profiles:
+      - production
+
+networks:
+  nexttrack:
+    driver: bridge
