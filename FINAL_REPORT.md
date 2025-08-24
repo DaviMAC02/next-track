@@ -52,7 +52,7 @@ The project addresses several key research questions:
 The main contributions of this work include:
 
 - A novel hybrid architecture that seamlessly integrates collaborative filtering and content-based approaches
-- Implementation of real-time recommendation serving with sub-10ms latency requirements
+- Implementation of real-time recommendation serving with sub-50ms latency requirements
 - Comprehensive evaluation framework comparing multiple recommendation strategies
 - Open-source, production-ready system with extensive documentation and testing infrastructure
 - Integration of modern MLOps practices including monitoring, A/B testing capabilities, and automated model training pipelines
@@ -282,8 +282,8 @@ All system parameters are configurable through environment variables:
 The modular design supports future extensions:
 
 - **Alternative recommendation algorithms**: Plugin architecture for new CF/CB methods
-- **Advanced session encoders**: LSTM/Transformer integration capabilities
-- **Multi-modal features**: Audio feature integration support
+- **Session encoding capabilities**: Mean pooling encoder with configuration for future LSTM/Transformer integration
+- **Multi-modal features**: Metadata feature support with infrastructure for audio feature integration
 - **Real-time learning**: Online model update mechanisms
 
 ### 3.7 Design Trade-offs and Decisions
@@ -764,7 +764,7 @@ This project successfully developed and evaluated NextTrack, a hybrid music reco
 
 #### 6.3.2 Methodological Considerations
 
-**Feature Engineering Simplicity**: The content-based component relies on relatively simple metadata features. Integration of audio signal analysis and more sophisticated musical features could potentially improve recommendation quality.
+**Feature Engineering Limitations**: The content-based component currently relies on metadata features only. While the literature shows audio signal analysis can improve recommendations, the current implementation focuses on metadata-based content filtering. Integration of audio signal analysis remains a future enhancement opportunity.
 
 **Static Model Architecture**: The current implementation uses fixed model parameters and weights. Personalized weight optimization and dynamic model adaptation could enhance individual user experience.
 
@@ -788,7 +788,7 @@ The system's emphasis on real-time performance and scalability addresses critica
 
 **Deep Learning Integration**: While the current implementation focuses on traditional machine learning approaches, the modular architecture provides clear extension points for deep learning integration. Future work could explore transformer-based session encoding and neural collaborative filtering while maintaining the system's performance characteristics.
 
-**Multi-Modal Recommendation**: Extension to incorporate audio signal analysis, lyrics processing, and social signals could significantly enhance recommendation quality. The existing content-based framework provides a foundation for such multi-modal integration.
+**Multi-Modal Recommendation**: Extension to incorporate audio signal analysis, lyrics processing, and social signals could significantly enhance recommendation quality. The existing metadata-based content framework provides a foundation for such multi-modal integration.
 
 **Real-Time Learning**: Implementation of online learning capabilities would enable the system to adapt to changing user preferences and emerging musical trends without requiring complete model retraining.
 

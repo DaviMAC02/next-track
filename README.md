@@ -5,10 +5,10 @@ A production-ready hybrid music recommendation API that combines collaborative f
 ## 🎵 Features
 
 - **Hybrid Recommendations**: Combines collaborative filtering and content-based approaches
-- **Real-time API**: FastAPI-based REST API with sub-millisecond response times
+- **Real-time API**: FastAPI-based REST API with low-latency response times
 - **Scalable Architecture**: Support for FAISS/Annoy ANN indexing for large catalogs
-- **Content-Based Filtering**: Audio features and metadata-based recommendations
-- **Advanced Session Encoding**: Support for LSTM/Transformer session encoders
+- **Content-Based Filtering**: Metadata-based recommendations with genre/mood filtering
+- **Session Encoding**: Mean pooling session encoder (configurable for future extensions)
 - **Production Ready**: Docker containerization, monitoring, rate limiting, authentication
 - **Flexible Configuration**: Environment-based configuration management
 
@@ -16,7 +16,7 @@ A production-ready hybrid music recommendation API that combines collaborative f
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.10+
 - Docker & Docker Compose (optional)
 
 ### Installation
@@ -55,61 +55,7 @@ curl http://localhost:8000/health
 
 ## 📖 API Documentation
 
-### Core Endpoints
-
-#### `POST /recommendations`
-
-Get personalized music recommendations based on listening history.
-
-**Request:**
-
-```json
-{
-  "track_sequence": ["track_id_1", "track_id_2"],
-  "top_k": 10,
-  "genre_filter": ["rock", "pop"],
-  "mood_filter": ["energetic"],
-  "fusion_method": "weighted_sum"
-}
-```
-
-**Response:**
-
-```json
-{
-  "recommendations": ["track_id_3", "track_id_4"],
-  "scores": [0.95, 0.87],
-  "metadata": {
-    "cf_weight": 0.7,
-    "cb_weight": 0.3,
-    "session_length": 2,
-    "fusion_method": "weighted_sum"
-  }
-}
-```
-
-#### `POST /similar-tracks`
-
-Find tracks similar to a given track.
-
-**Request:**
-
-```json
-{
-  "track_id": "track_id_1",
-  "top_k": 5,
-  "use_cf": true,
-  "use_cb": true
-}
-```
-
-#### `GET /health`
-
-Detailed system health check.
-
-#### `GET /metrics`
-
-Prometheus-compatible metrics endpoint.
+The API provides comprehensive endpoints for music recommendations, monitoring, feedback, and A/B testing. Visit `/docs` when the server is running for interactive API documentation, or `/redoc` for detailed API specifications.
 
 ### Authentication
 
@@ -132,8 +78,8 @@ Key environment variables:
 
 | Variable              | Default | Description                    |
 | --------------------- | ------- | ------------------------------ |
-| `CF_WEIGHT`           | 0.7     | Collaborative filtering weight |
-| `CB_WEIGHT`           | 0.3     | Content-based weight           |
+| `CF_WEIGHT`           | 0.6     | Collaborative filtering weight |
+| `CB_WEIGHT`           | 0.4     | Content-based weight           |
 | `USE_ANN_INDEX`       | true    | Enable FAISS/Annoy indexing    |
 | `ANN_INDEX_TYPE`      | faiss   | ANN library (faiss/annoy)      |
 | `USE_CONTENT_BASED`   | true    | Enable content-based filtering |
@@ -223,9 +169,9 @@ This script will:
 ### Health Monitoring
 
 - `/health` - System health status
-- `/metrics` - Prometheus metrics
+- `/monitoring/metrics` - Prometheus metrics
 - Built-in request/response monitoring
-- Redis caching support
+- Optional Redis caching support (uses in-memory fallback if not available)
 
 ### Performance Evaluation
 
@@ -265,14 +211,14 @@ pytest tests/test_api.py::TestNextTrackAPI::test_get_recommendations_basic
 For step-by-step verification of all functionality:
 
 ```bash
-# Automated comprehensive test
-python manual_test_script.py
+# Use the quickstart script for comprehensive setup and testing
+./quickstart.sh
 
 # Or follow the detailed manual guide
 # See TESTING_GUIDE.md for step-by-step instructions
 ```
 
-The manual test script will:
+The quickstart script will:
 
 1. Test MusicBrainz data fetching
 2. Verify model training pipeline
@@ -319,7 +265,7 @@ export RATE_LIMIT_REQUESTS=1000
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## 🎯 Performance Benchmarks
 
@@ -347,10 +293,9 @@ pip install faiss-cpu  # Or faiss-gpu for GPU support
 **Q: Redis connection error**
 
 ```bash
-# Start Redis locally
+# Start Redis locally (if needed for enhanced caching)
 redis-server
-# Or disable Redis in config
-export USE_REDIS=false
+# Note: Redis is optional - the system uses in-memory fallback if unavailable
 ```
 
 **Q: Model initialization fails**
