@@ -280,7 +280,7 @@ pip install torch transformers  # Install optional dependencies
 **Q: FAISS import error**
 
 ```bash
-pip install faiss-cpu  # Or faiss-gpu for GPU support
+pip install faiss-cpu  # faiss-gpu for GPU support
 ```
 
 **Q: Model initialization fails**

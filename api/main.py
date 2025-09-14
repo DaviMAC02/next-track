@@ -54,7 +54,7 @@ def get_api_key_dependency():
         async def _noop():
             return "anonymous"
 
-        return _noop  # Return the function, not Depends(_noop)
+        return _noop
 
 
 class RateLimiter:

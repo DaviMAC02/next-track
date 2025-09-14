@@ -17,7 +17,7 @@
 
 ---
 
-## 1. Introduction
+## 1. Introduction (361/1000 words)
 
 ### 1.1 Project Concept and Motivation
 
@@ -61,7 +61,7 @@ The system demonstrates that academic recommendation algorithms can be successfu
 
 ---
 
-## 2. Literature Review
+## 2. Literature Review (824/2500 words)
 
 ### 2.1 Recommendation System Fundamentals
 
@@ -124,7 +124,7 @@ This comprehensive approach provides both academic rigor and practical applicabi
 
 ---
 
-## 3. Design
+## 3. Design (1056/2000 words)
 
 ### 3.1 System Architecture Overview
 
@@ -132,26 +132,7 @@ The NextTrack system implements a microservices-inspired architecture designed f
 
 **Figure 3.1: NextTrack System Architecture**
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    API Layer (FastAPI)                     │
-├─────────────────────────────────────────────────────────────┤
-│              Hybrid Recommendation Engine                  │
-│  ┌─────────────────┐              ┌─────────────────┐      │
-│  │   CF Engine     │              │   CB Engine     │      │
-│  │   (LightFM)     │              │ (Metadata)      │      │
-│  │ + ANN Indexing  │              │   Features      │      │
-│  └─────────────────┘              └─────────────────┘      │
-├─────────────────────────────────────────────────────────────┤
-│                Session Vectorization                       │
-├─────────────────────────────────────────────────────────────┤
-│     Data Processing Layer                                  │
-│  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────┐ │
-│  │  MusicBrainz    │  │    Training     │  │ Integration │ │
-│  │  Data Source    │  │    Pipeline     │  │   Pipeline  │ │
-│  └─────────────────┘  └─────────────────┘  └─────────────┘ │
-└─────────────────────────────────────────────────────────────┘
-```
+[IMAGE HERE later]
 
 ### 3.2 Data Architecture and Pipeline
 
@@ -316,7 +297,7 @@ This design provides a robust foundation for music recommendation while maintain
 
 ---
 
-## 4. Implementation
+## 4. Implementation (2034/2500 words)
 
 ### 4.1 Development Environment and Technology Stack
 
@@ -469,7 +450,7 @@ This implementation provides a robust, scalable, and maintainable foundation for
 
 ---
 
-## 5. Evaluation
+## 5. Evaluation (1385/2500 words)
 
 **Evaluation Data Source**: All performance metrics, dataset statistics, and evaluation results presented in this section are extracted directly from the system's `evaluate.py` script execution. The results are automatically logged to `logs/evaluation_report.json` to ensure reproducibility and accuracy.
 
@@ -720,7 +701,7 @@ The comprehensive evaluation validates NextTrack as an effective foundation for 
 
 ---
 
-## 6. Conclusion
+## 6. Conclusion (985/1000 words)
 
 ### 6.1 Project Summary
 
@@ -812,18 +793,6 @@ The system's emphasis on real-time performance and scalability addresses critica
 
 **Trade-off Management**: Balancing recommendation accuracy, diversity, coverage, and computational efficiency requires careful consideration of use case requirements and user expectations. No single optimization target adequately captures system quality.
 
-### 6.6 Final Reflection
-
-The development of NextTrack represents a successful integration of academic research principles with practical software engineering requirements. The project demonstrates that recommendation system research can produce deployable systems that meet both theoretical rigor and industrial performance standards.
-
-The hybrid architecture effectively addresses fundamental limitations in individual recommendation approaches while providing the transparency and configurability essential for research applications. The comprehensive evaluation validates the system's effectiveness across multiple dimensions while honestly acknowledging current limitations and areas for future improvement.
-
-Most importantly, the project establishes a foundation for continued research and development in music recommendation systems. The open-source implementation, comprehensive documentation, and thorough evaluation provide future researchers with a robust starting point for exploring advanced recommendation techniques while maintaining practical applicability.
-
-The success of NextTrack in achieving its core objectives—effective hybrid recommendation, real-world data integration, and production-ready implementation—validates the approach of combining academic rigor with engineering excellence. This methodology offers a model for future machine learning research projects seeking to bridge the critical gap between theoretical innovation and practical application.
-
-Through careful balance of algorithmic sophistication and system practicality, NextTrack contributes to both the advancement of recommendation system research and the availability of open-source tools for the broader machine learning community. The project's emphasis on transparency, reproducibility, and extensibility ensures its continued relevance as a foundation for future innovation in personalized music recommendation.
-
 ---
 
 ## References
@@ -861,9 +830,3 @@ Schedl, M., Zamani, H., Chen, C. W., Deldjoo, Y., & Elahi, M. (2018). Current ch
 Van den Oord, A., Dieleman, S., & Schrauwen, B. (2013). Deep content-based music recommendation. In _Advances in Neural Information Processing Systems_ (pp. 2643-2651).
 
 ---
-
-**Word Count: Approximately 10,500 words**
-
-**Code Repository**: https://github.com/[your-username]/nexttrack-api  
-**Documentation**: Available in repository README.md and GETTING_STARTED.md  
-**Testing Guide**: Complete manual testing procedures in TESTING_GUIDE.md
