@@ -1,0 +1,660 @@
+{
+  "info": {
+    "_postman_id": "nexttrack-api-collection",
+    "name": "NextTrack API Collection",
+    "description": "Comprehensive collection for NextTrack Hybrid Music Recommendation API\n\n**Features:**\n- Hybrid recommendations (CF + CB)\n- A/B testing framework\n- User feedback collection\n- System monitoring\n- Cache management\n\n**Authentication:**\nSet the `api_key` variable if authentication is enabled.\n\n**Base URL:**\nSet the `base_url` variable to your API endpoint (e.g., http://localhost:8000)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health & Status",
+      "item": [
+        {
+          "name": "Basic Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                ""
+              ]
+            },
+            "description": "Simple health check to verify API is running"
+          }
+        },
+        {
+          "name": "Detailed Health Check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health"
+              ]
+            },
+            "description": "Comprehensive health check with component status"
+          }
+        }
+      ],
+      "description": "Basic system health and status endpoints"
+    },
+    {
+      "name": "Recommendations",
+      "item": [
+        {
+          "name": "Get Personalized Recommendations",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"track_sequence\": [\"c39dd815-657e-4d4f-9252-7fd2497622f6\", \"527468d0-20fb-4a04-a98d-88c56488f9e0\", \"e2db3c77-0ef2-46a4-a710-4baa1d6747e1\"],\n  \"top_k\": 10,\n  \"genre_filter\": [\"rock\", \"pop\"],\n  \"mood_filter\": [\"energetic\"],\n  \"fusion_method\": \"weighted_sum\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/recommendations",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "recommendations"
+              ]
+            },
+            "description": "Get personalized music recommendations based on listening history"
+          }
+        },
+        {
+          "name": "Get Next Track",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/next_track?track_sequence=c39dd815-657e-4d4f-9252-7fd2497622f6&track_sequence=527468d0-20fb-4a04-a98d-88c56488f9e0&top_k=5",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "next_track"
+              ],
+              "query": [
+                {
+                  "key": "track_sequence",
+                  "value": "c39dd815-657e-4d4f-9252-7fd2497622f6"
+                },
+                {
+                  "key": "track_sequence",
+                  "value": "527468d0-20fb-4a04-a98d-88c56488f9e0"
+                },
+                {
+                  "key": "top_k",
+                  "value": "5"
+                }
+              ]
+            },
+            "description": "Alternative endpoint for single track recommendations using query parameters"
+          }
+        },
+        {
+          "name": "Get Similar Tracks",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"track_id\": \"c3438997-91b8-4e93-9459-8f754c913479\",\n  \"top_k\": 10,\n  \"use_cf\": true,\n  \"use_cb\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/similar_tracks",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "similar_tracks"
+              ]
+            },
+            "description": "Find tracks similar to a given track"
+          }
+        }
+      ],
+      "description": "Core recommendation functionality"
+    },
+    {
+      "name": "System & Data",
+      "item": [
+        {
+          "name": "Get System Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "stats"
+              ]
+            },
+            "description": "Get comprehensive system performance statistics"
+          }
+        },
+        {
+          "name": "List Available Tracks",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/tracks?limit=100&offset=0",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "tracks"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "100",
+                  "description": "Maximum number of tracks to return"
+                },
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Number of tracks to skip for pagination"
+                }
+              ]
+            },
+            "description": "Retrieve paginated list of available tracks"
+          }
+        }
+      ],
+      "description": "System information and data access endpoints"
+    },
+    {
+      "name": "Monitoring",
+      "item": [
+        {
+          "name": "Comprehensive Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/monitoring/health",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "monitoring",
+                "health"
+              ]
+            },
+            "description": "Advanced health check with detailed component information"
+          }
+        },
+        {
+          "name": "Get Metrics Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/monitoring/metrics",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "monitoring",
+                "metrics"
+              ]
+            },
+            "description": "Retrieve aggregated performance metrics"
+          }
+        },
+        {
+          "name": "Prometheus Metrics Export",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/monitoring/prometheus",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "monitoring",
+                "prometheus"
+              ]
+            },
+            "description": "Export metrics in Prometheus format"
+          }
+        },
+        {
+          "name": "Get Cache Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/monitoring/cache",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "monitoring",
+                "cache"
+              ]
+            },
+            "description": "Retrieve cache performance statistics"
+          }
+        },
+        {
+          "name": "Clear Cache",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/monitoring/cache/clear",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "monitoring",
+                "cache",
+                "clear"
+              ]
+            },
+            "description": "Clear all cached recommendation data"
+          }
+        },
+        {
+          "name": "Invalidate Cache Pattern",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/monitoring/cache/rec_*",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "monitoring",
+                "cache",
+                "rec_*"
+              ]
+            },
+            "description": "Invalidate cache entries matching a pattern (e.g., rec_*, user_*, similar_*)"
+          }
+        }
+      ],
+      "description": "System monitoring, metrics, and cache management"
+    },
+    {
+      "name": "Feedback",
+      "item": [
+        {
+          "name": "Submit User Feedback",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"session_123\",\n  \"user_id\": \"user_456\",\n  \"track_id\": \"aa2dafe9-b963-4c92-b5cf-0eb510cef008\",\n  \"feedback_type\": \"like\",\n  \"feedback_value\": null,\n  \"recommendation_context\": {\n    \"position\": 1,\n    \"algorithm\": \"hybrid\",\n    \"cf_weight\": 0.6,\n    \"cb_weight\": 0.4\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/feedback",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "feedback"
+              ]
+            },
+            "description": "Submit user feedback for music recommendations"
+          }
+        },
+        {
+          "name": "Submit Explicit Rating",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"session_id\": \"session_123\",\n  \"user_id\": \"user_456\",\n  \"track_id\": \"062a527c-e766-46c1-a388-d45ed216df40\",\n  \"feedback_type\": \"explicit_rating\",\n  \"feedback_value\": 4.5,\n  \"recommendation_context\": {\n    \"position\": 1,\n    \"algorithm\": \"hybrid\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/feedback",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "feedback"
+              ]
+            },
+            "description": "Submit explicit rating feedback (1-5 scale)"
+          }
+        },
+        {
+          "name": "Get Feedback Statistics",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/feedback/stats",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "feedback",
+                "stats"
+              ]
+            },
+            "description": "Get aggregated feedback statistics"
+          }
+        },
+        {
+          "name": "Get Track-Specific Feedback",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/feedback/track/158a39a4-0db0-41b1-abb5-07a8473e2376?days=7",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "feedback",
+                "track",
+                "158a39a4-0db0-41b1-abb5-07a8473e2376"
+              ],
+              "query": [
+                {
+                  "key": "days",
+                  "value": "7",
+                  "description": "Number of days to look back (1-365)"
+                }
+              ]
+            },
+            "description": "Get feedback history for a specific track"
+          }
+        }
+      ],
+      "description": "User feedback collection and analytics"
+    },
+    {
+      "name": "A/B Testing & Experiments",
+      "item": [
+        {
+          "name": "Create A/B Test Experiment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"CF Weight Optimization\",\n  \"description\": \"Testing different collaborative filtering weights for better recommendations\",\n  \"traffic_split\": 0.2,\n  \"config_overrides\": {\n    \"cf_weight\": 0.8,\n    \"cb_weight\": 0.2,\n    \"fusion_method\": \"weighted_sum\"\n  },\n  \"success_metrics\": [\"precision@10\", \"engagement_rate\", \"ctr\"],\n  \"duration_days\": 30\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/experiments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "experiments"
+              ]
+            },
+            "description": "Create a new A/B test experiment"
+          }
+        },
+        {
+          "name": "List Active Experiments",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/experiments",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "experiments"
+              ]
+            },
+            "description": "List all active A/B testing experiments"
+          }
+        },
+        {
+          "name": "Start Experiment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/experiments/{{experiment_id}}/start",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "experiments",
+                "{{experiment_id}}",
+                "start"
+              ]
+            },
+            "description": "Start an A/B test experiment"
+          }
+        },
+        {
+          "name": "Stop Experiment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{api_key}}",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/experiments/{{experiment_id}}/stop",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "experiments",
+                "{{experiment_id}}",
+                "stop"
+              ]
+            },
+            "description": "Stop an A/B test experiment"
+          }
+        }
+      ],
+      "description": "A/B testing and experiment management"
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// Auto-disable authorization header if api_key is not set",
+          "if (!pm.collectionVariables.get('api_key')) {",
+          "    // Find and disable Authorization header",
+          "    pm.request.headers.each(header => {",
+          "        if (header.key === 'Authorization') {",
+          "            header.disabled = true;",
+          "        }",
+          "    });",
+          "}"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string",
+      "description": "Base URL for the NextTrack API"
+    },
+    {
+      "key": "api_key",
+      "value": "",
+      "type": "string",
+      "description": "API key for authentication (leave empty if auth is disabled)"
+    },
+    {
+      "key": "experiment_id",
+      "value": "exp_1692902400",
+      "type": "string",
+      "description": "Experiment ID for A/B testing operations"
+    },
+    {
+      "key": "sample_track_1",
+      "value": "c39dd815-657e-4d4f-9252-7fd2497622f6",
+      "type": "string",
+      "description": "Sample track ID from actual data"
+    },
+    {
+      "key": "sample_track_2",
+      "value": "527468d0-20fb-4a04-a98d-88c56488f9e0",
+      "type": "string",
+      "description": "Sample track ID from actual data"
+    },
+    {
+      "key": "sample_track_3",
+      "value": "e2db3c77-0ef2-46a4-a710-4baa1d6747e1",
+      "type": "string",
+      "description": "Sample track ID from actual data"
+    }
+  ]
+}

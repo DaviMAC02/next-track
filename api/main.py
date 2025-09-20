@@ -168,13 +168,12 @@ and content-based (CB) approaches to provide personalized music recommendations.
 
 ### Key Features
 
-* **🎵 Hybrid Recommendations**: Combines collaborative filtering and content-based approaches
-* **⚡ Real-time API**: Sub-millisecond response times with FAISS indexing
-* **🧪 A/B Testing**: Built-in experimentation framework for optimization
-* **📊 User Feedback**: Comprehensive feedback collection and analysis
-* **🔒 Security**: Optional API key authentication and rate limiting
-* **📈 Monitoring**: Prometheus metrics and health checks
-* **🐳 Docker Ready**: Production containerization
+* ** Hybrid Recommendations**: Combines collaborative filtering and content-based approaches
+* ** A/B Testing**: Built-in experimentation framework for optimization
+* ** User Feedback**: Comprehensive feedback collection and analysis
+* ** Security**: Optional API key authentication and rate limiting
+* ** Monitoring**: Prometheus metrics and health checks
+* ** Docker Ready**: Production containerization
 
 ### Architecture
 
