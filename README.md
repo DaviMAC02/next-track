@@ -1,6 +1,8 @@
 # NextTrack API - Hybrid Music Recommendation System
 
-A production-ready hybrid music recommendation API that combines collaborative filtering (CF) and content-based (CB) approaches to provide personalized music recommendations.
+A hybrid music recommendation API that combines collaborative filtering (CF) and content-based (CB) approaches to recommend the next track in a listening session.
+
+Built as my BSc Computer Science thesis at the University of London. The full write-up, with design, evaluation and results, is in [docs/thesis-report.pdf](docs/thesis-report.pdf).
 
 ## 🎵 Features
 
@@ -24,7 +26,8 @@ A production-ready hybrid music recommendation API that combines collaborative f
 1. **Clone and setup environment**:
 
 ```bash
-cd "Final Version"
+git clone https://github.com/DaviMAC02/next-track.git
+cd next-track
 python -m venv .venv
 source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
@@ -265,7 +268,7 @@ export RATE_LIMIT_REQUESTS=1000
 
 ## 📝 License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
 
 ## 🔍 Troubleshooting
 

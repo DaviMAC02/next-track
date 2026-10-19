@@ -9,7 +9,7 @@ Before running any tests, ensure you have:
 1. **Python 3.10+ installed**
 2. **Virtual environment activated**:
    ```bash
-   cd "Final Version"
+   cd next-track
    source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 3. **All dependencies installed**:
@@ -233,7 +233,7 @@ To verify the system is working optimally:
 
 ```bash
 # Solution: Add current directory to Python path or run from project root
-cd "Final Version"
+cd next-track
 python manual_test_script.py
 ```
 
